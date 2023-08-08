@@ -54,6 +54,7 @@ namespace QuickEye.SceneInjection
             _mandatoryScenesCache = AssetDatabase.FindAssets($"t:{nameof(MandatorySceneConfig)}")
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .Select(AssetDatabase.LoadAssetAtPath<MandatorySceneConfig>)
+                .Where(c => c != null)
                 .Where(c => c.scene != null).ToArray();
             x.Stop();
             //Debug.Log($"Cache updated: {x.Elapsed}");

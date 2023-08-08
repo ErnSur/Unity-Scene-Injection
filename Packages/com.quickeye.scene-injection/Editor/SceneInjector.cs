@@ -6,7 +6,7 @@ namespace QuickEye.SceneInjection
     internal class SceneInjector : AssetPostprocessor
     {
         private static bool _oneTimeAssetsLoadedInvoked;
-        
+
         /// <summary>
         /// In batch mode it is modifying the EditorBuildSettings.scenes
         /// from InitializeOnLoad method has no effect
@@ -28,19 +28,14 @@ namespace QuickEye.SceneInjection
             Debug.Log($"Can load asset {obj != null} | {source}");
         }
 
-        // private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets
-        //     , string[] movedFromAssetPaths)
-        // {
-        //     ReInjectMandatoryScenes();
-        //     Debug.Log("Init loaded assets");
-        // }
-
+        // If MandatorySceneDatabase will be loading configs using LoadAndForget it will be possible to
+        // inject scenes in InitializeOnLoadMethod
         [MenuItem("Debug/Re Inject")]
         private static void ReInjectMandatoryScenes()
         {
             var mandatoryScenes = MandatorySceneDatabase.GetMandatoryScenes();
             var userScenes = MandatorySceneDatabase.GetUserScenes();
-            
+
             var allScenes = mandatoryScenes.Concat(userScenes)
                 .OrderBy(s => s.FractionalIndex)
                 .ToArray();

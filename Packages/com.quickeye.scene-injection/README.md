@@ -11,5 +11,3 @@
 
 Already achieved
 - updates build scenes on every clean project launch (because it needs to import all assets, triggering database update)
-
-- is it possible to break it?
